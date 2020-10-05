@@ -14,7 +14,7 @@ const createWindow = () => {
 		}
 	});
 	mainWindow.loadFile(path.join(__dirname, '..', 'editor.html'));
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
 };
 
 app.on('ready', createWindow);
