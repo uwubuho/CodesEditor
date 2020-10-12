@@ -1,10 +1,63 @@
-#editor { 
-  position: absolute;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  border: 0;
-  margin: 0;
-  padding: 0;
+@import "../node_modules/codemirror/lib/codemirror.css";
+@import "../node_modules/codemirror/theme/twilight.css";
+
+.CodeMirror {
+    height: 100%;
+    width: 100%;
+    font-size: 1.5em;
+    font-family: "Kingthings Trypewriter 2";
+    background-color: transparent;
 }
+
+.clientAddText {
+    color: #696969;
+}
+
+.clientRemoveText {
+    color: #6d4545;
+}
+
+#container {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    display:flex;
+    flex-direction:column;
+    background-color: #141414;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* DEBUG */
+
+.Tree {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+    width: 200px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: seashell;
+    background-color: slategray;
+}
+
+.TreeNode {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height:80px; 
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: seashell;
+    background-color: slategray;
+}
+/* DEBUG */

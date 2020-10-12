@@ -10,6 +10,7 @@ const createWindow = () => {
 		width: 1280, 
 		height: 720,
 		webPreferences: {
+			worldSafeExecuteJavaScript: true,
 			nodeIntegration: true,
 		}
 	});
