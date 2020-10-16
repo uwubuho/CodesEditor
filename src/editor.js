@@ -58,6 +58,10 @@ var n9 = {"from":{"line":0,"ch":2},"to":{"line":0,"ch":2},"index":2,"origin":"+i
 var n10 = {"from":{"line":0,"ch":4},"to":{"line":0,"ch":4},"index":4,"origin":"+input","text":["Z"]};
 //eventQueue = [ n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, ] /**/
 
+CodeMirror.commands.killLine = function() {
+    console.log("aaa");
+}
+
 editor.on("beforeChange", (editor, event) => {
     if(event.origin == "+delete")
     {
@@ -66,7 +70,7 @@ editor.on("beforeChange", (editor, event) => {
             event.cancel();
             return;
         }
-        //event.cancel();
+        event.cancel();
         var cursor = doc.getCursor();
         var indexCursor = editor.indexFromPos(cursor);
         var cursorBack = editor.posFromIndex(indexCursor - 1);
