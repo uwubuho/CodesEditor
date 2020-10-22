@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'Ruluko Regular';
+    src: url('fonts/Ruluko-Regular.ttf');
+}
+
+body, html {
+  width: 817px;
+  height: 459px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #1E2124;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  width: 300px;
+  height: 300px;
+  paddin: 40px;
+  background: #1E2125;
+}
+
+.form-title {
+  margin-bottom: 36px;
+  margin-top: 0px;
+  color: #A0A5AB;
+  font-family: 'Ruluko Regular';
+  font-style: normal;
+  font-weight: normal;
+  height: 96px;
+  width: 275px;
+  font-size: 96px;
+  line-height: 111px;
+}
+
+.form-nick {
+  margin-bottom: 5px;
+  color: #CCCCCC;
+  font-family: 'Ruluko Regular';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  margin: auto;
+}
+
+.form-contra {
+  margin-top: 8px;
+  margin-bottom: 5px;
+  color: #CCCCCC;
+  display: block;
+  font-family: 'Ruluko Regular';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 5px, auto;
+}
+
+.form-crear {
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #CCCCCC;
+  font-family: 'Ruluko Regular';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.form-crear1{
+  margin-bottom: 26px;
+  color: #5E5E60;
+  font-family: 'Ruluko Regular';
+  font-style:normal;
+  font-weight:bold;
+  font-size: 12px;
+  line-height: 14px;
+}
+.form-box input[type="text"],
+.form-box input[type="password"] {
+  border: 0;
+  background: #282B30;
+  display: block;
+  margin: 20px, auto;
+  height: 40px;
+  width: 259px;
+  margin-bottom: 47px, auto;
+}
+
+.form-box button[type="submit"] {
+  margin-top: 26px;
+  margin-bottom: 8px;
+  border: 0;
+  font-family: 'Ruluko Regular';
+  background: #5E5E60;
+  height: 40px;
+  width: 259px;
+  left: 279px;
+  top: 364px;
+  border-radius: 0px;
+}
+
+.form-o {
+  margin-top: 8px;
+  margin-bottom: 8xp;
+  color: #CCCCCC;
+  text-align: center;
+  font-family: 'Ruluko Regular';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.form-box button[type="submit1"] {
+  margin-top: 8px;
+  border: 0;
+  background: #5E5E60;
+  font-family: 'Ruluko Regular';
+  height: 40px;
+  width: 259px;
+  left: 279px;
+  top: 364px;
+  border-radius: 0px;
+}
+}
