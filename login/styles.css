@@ -3,12 +3,13 @@
     src: url('fonts/Ruluko-Regular.ttf');
 }
 
-body, html {
-  width: 817px;
-  height: 459px;
+@font-face {
+  font-family: 'Crete Round';
+  src: url('fonts/CreteRound-Regular.ttf');
 }
 
 body {
+  height: 100vh;
   margin: 0;
   padding: 0;
   background: #1E2124;
@@ -20,114 +21,110 @@ body {
 }
 
 .form-box {
-  width: 300px;
-  height: 300px;
-  paddin: 40px;
-  background: #1E2125;
+  -webkit-box-shadow: -2px 2px 10px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: -2px 2px 10px 0px rgba(0,0,0,0.4);
+  box-shadow: -2px 2px 10px 0px rgba(0,0,0,0.4);
+  
+  position: relative;
+  box-sizing: border-box;
+  width: 400px;
+  border-radius: 10px;
+  padding : 40px;
+  background: #282B30;
 }
 
 .form-title {
-  margin-bottom: 36px;
-  margin-top: 0px;
+  position: relative;
+  display: block;
+  margin: 0px;
+  margin-bottom: 30px;
   color: #A0A5AB;
-  font-family: 'Ruluko Regular';
+  font-family: 'Crete Round';
   font-style: normal;
   font-weight: normal;
-  height: 96px;
-  width: 275px;
-  font-size: 96px;
-  line-height: 111px;
+  line-height: 0.8;
+  padding: 0px;
+  width: 100%;
+  font-size: 60px;
+  text-align: center;
 }
 
-.form-nick {
-  margin-bottom: 5px;
-  color: #CCCCCC;
-  font-family: 'Ruluko Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-  margin: auto;
-}
-
-.form-contra {
-  margin-top: 8px;
-  margin-bottom: 5px;
-  color: #CCCCCC;
+.form-element {
+  position: relative;
+  margin-top: 0px;
+  margin-bottom: 25px;
   display: block;
+}
+
+.form-label {
+  color: #8d8d8d;
   font-family: 'Ruluko Regular';
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-  margin: 5px, auto;
+  font-size: 13px;
+  margin: 0px;
+  margin-bottom: 7px;
 }
 
-.form-crear {
-  margin-top: 5px;
-  margin-bottom: 0;
+.form-input {
+  box-sizing: border-box;
   color: #CCCCCC;
-  font-family: 'Ruluko Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
-}
-
-.form-crear1{
-  margin-bottom: 26px;
-  color: #5E5E60;
-  font-family: 'Ruluko Regular';
-  font-style:normal;
-  font-weight:bold;
-  font-size: 12px;
-  line-height: 14px;
-}
-.form-box input[type="text"],
-.form-box input[type="password"] {
-  border: 0;
-  background: #282B30;
-  display: block;
-  margin: 20px, auto;
+  font-size: 15px;
+  background: #424549;
+  padding-left: 8px;
   height: 40px;
-  width: 259px;
-  margin-bottom: 47px, auto;
+  width: 100%;
+  margin: 0px;
+  border: none;
+  border-radius: 6px;
 }
 
-.form-box button[type="submit"] {
-  margin-top: 26px;
+.form-input[type="password"] {
+  font: small-caption;
+  font-size: 16px;
+}
+
+
+.form-input:focus {
+  border: solid 1px #8d8d8d;
+  outline: none;
+}
+
+.submit-button {
+  margin-top: 10px;
   margin-bottom: 8px;
   border: 0;
   font-family: 'Ruluko Regular';
-  background: #5E5E60;
+  color: #1E2124;
+  background: #8d8d8d;
   height: 40px;
-  width: 259px;
-  left: 279px;
-  top: 364px;
-  border-radius: 0px;
+  width: 100%;
+  border-radius: 6px;
 }
 
-.form-o {
-  margin-top: 8px;
-  margin-bottom: 8xp;
-  color: #CCCCCC;
-  text-align: center;
+.text {
+  margin-top: 5px;
+  margin-bottom: 0;
+  color: #818181;
   font-family: 'Ruluko Regular';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 14px;
+  font-size: 15px;
 }
 
-.form-box button[type="submit1"] {
-  margin-top: 8px;
-  border: 0;
-  background: #5E5E60;
+a {
+  color: #818181;
   font-family: 'Ruluko Regular';
-  height: 40px;
-  width: 259px;
-  left: 279px;
-  top: 364px;
-  border-radius: 0px;
+  font-weight: bold;
+  font-size: 15px;
 }
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
