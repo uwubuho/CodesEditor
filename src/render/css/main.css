@@ -1,0 +1,32 @@
+@import "../../../node_modules/codemirror/lib/codemirror.css";
+@import "../../../node_modules/codemirror/theme/twilight.css";
+
+.CodeMirror {
+    height: 100%;
+    width: 100%;
+    font-size: 1.5em;
+    font-family: "Kingthings Trypewriter 2";
+    background-color: transparent;
+}
+
+.clientAddText {
+    color: #696969;
+}
+
+.clientRemoveText {
+    color: #6d4545;
+}
+
+#container {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    display:flex;
+    flex-direction:column;
+    background-color: #141414;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
