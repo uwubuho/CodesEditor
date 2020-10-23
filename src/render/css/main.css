@@ -1,12 +1,188 @@
-@import "../../../node_modules/codemirror/lib/codemirror.css";
-@import "../../../node_modules/codemirror/theme/twilight.css";
+@import url(../../../node_modules/codemirror/lib/codemirror.css);
+@import url(../../../node_modules/jquery-ui-dist/jquery-ui.css);
 
-.CodeMirror {
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    position: absolute;
+    display: flex;
+    margin: 0px;
+    padding: 0px;
     height: 100%;
     width: 100%;
-    font-size: 1.5em;
+    background-color: #1E2124;
+}
+
+.project-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80px;
+    background-color: #1E2124;
+}
+
+.project {
+    user-select: none;
+    padding: 20px;
+    text-align: center;
+    color: #A0A5AB;
+    background-color: #282B30;
+    box-sizing: border-box;
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+
+.project-tab {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.file-explorer {
+    z-index: 2;
+    background-color: #282B30;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 200px;
+    top: 0!important;
+    bottom: 0!important;
+    height: 100%!important;
+}
+
+.explorer-text {
+    user-select: none;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding-left: 15px;
+    color: #A0A5AB;
+    box-sizing: border-box;
+    font-family: Verdana;
+    font-size: 0.8em;
+}
+
+.files {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.file {
+    user-select: none;
+    cursor: pointer;
+    color: #A0A5AB;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+.file.selected {
+    background-color: rgba(160, 165, 171, 0.1);
+}
+
+.workspace {
+    position: relative;
+    flex-grow: 1;
+    top: 0!important;
+    bottom: 0!important;
+    height: 100%!important;
+    display: flex;
+    flex-direction: column;
+}
+
+.open-files {
+    z-index: 2;
+    height: 40px;
+    display: flex;
+    background-color: #282B30;
+}
+
+.open-file {
+    cursor: pointer;
+    display: flex;
+    background-color: #36393E;
+    color: #CCCCCC;
+    height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.open-file.selected {
+    background-color: #1E2124;
+}
+
+.open-file-route {
+    user-select: none;
+    z-index: 1;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    display: flex;
+    background-color: #1E2124;
+    height: 30px;
+    color: #7B8189;
+    padding-right: 10px;
+    padding-left: 10px;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.editor-container {
+    z-index: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.CodeMirror {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    font-size: 1.2em;
     font-family: "Kingthings Trypewriter 2";
-    background-color: transparent;
+    background-color: #1E2124;
+    color: #CCCCCC;
+}
+
+.CodeMirror-linenumbers {
+    background-color: #1E2124;
+    align-items: center;
+}
+
+.CodeMirror-linenumber {
+    background-color: #1E2124;
+    color: #7B8189;
+    width: 30px;
+    padding-top: 0.2em;
+    padding-right: 10px;
+    font-size: 0.8em;
+    margin: 0;
+}
+
+.CodeMirror-gutters {
+    background-color: #1E2124;
+    border: none;
+}
+
+.CodeMirror-cursor {
+    border-left: 1px solid #7B8189;
 }
 
 .clientAddText {
@@ -15,18 +191,4 @@
 
 .clientRemoveText {
     color: #6d4545;
-}
-
-#container {
-    margin: 0px;
-    padding: 0px;
-    height: 100vh;
-    display:flex;
-    flex-direction:column;
-    background-color: #141414;
-}
-
-body {
-    margin: 0px;
-    padding: 0px;
 }
