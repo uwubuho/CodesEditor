@@ -36,6 +36,9 @@ var myTree = Treeviz.create({
 });
 //////////////////////////////////////////////////////////////
 
+
+
+
 var CodeMirror = require("codemirror");
 
 var connected = false;
@@ -218,7 +221,6 @@ socket.addEventListener("message", (e) => {
                 console.log("error: ", error);
             }
         }
-        myTree.refresh(CharNode.obtenerEstructuraArbol(rootCharNode), { duration: 0 });
     }
 });
 
@@ -241,3 +243,7 @@ socket.addEventListener("open", (e) => {
 socket.addEventListener("close", (e) => {
     connected = false;
 })
+
+$( "#tree" ).on("click", function(event) {
+    myTree.refresh(CharNode.obtenerEstructuraArbol(rootCharNode), { duration: 0 });
+});
