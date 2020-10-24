@@ -1,6 +1,16 @@
 import { Identifier, Char, CharNode } from './char.js';
 import { ConexionEditor } from './connection.js';
 
+class LocalChange 
+{
+    constructor(from, to, text)
+    {
+        this.from = from;
+        this.to = to;
+        this.text = text;
+    }
+}
+
 //TEST/////////////////////////////////////////////////////////////
 var Treeviz = require('treeviz');
 var myTree = Treeviz.create({
@@ -33,7 +43,7 @@ var endpointHk = 'ws://codes-collab.herokuapp.com';
 var endpointLocal = 'ws://127.0.0.1:8000';
 var url = '/ping/';
 var token = '67c03b6f6fb51a22af1c30c1b155cf20b9efae35';
-var socket = new ConexionEditor(endpointLocal, url, token);
+var socket = new ConexionEditor(endpointHk, url, token);
 var rootCharNode = null;
 var clientID = -1;
 
@@ -41,140 +51,105 @@ var a = [];
 var eventQueue = [];
 var eventCount = 0;
 
+var clientMarks = new Map();
+
 var editor = CodeMirror(document.getElementById("editor"), {
     mode: "javascript",
     lineNumbers: true,
 });
 var doc = editor.getDoc();
+var cursor = doc.getCursor();
 
 editor.on("beforeChange", (editor, event) => {
-    /*if(event.origin == "+delete")
+    if(!connected)
     {
-        if(!connected)
-        {
-            event.cancel();
-            return;
-        }
         event.cancel();
-        var cursor = doc.getCursor();
-        var indexCursor = editor.indexFromPos(cursor);
-        var cursorBack = editor.posFromIndex(indexCursor - 1);
-        doc.setCursor(cursorBack)
-        var fromIndex = editor.indexFromPos(event.from);
-        var toIndex = editor.indexFromPos(event.to);
-        if(fromIndex == 0 && toIndex == 0) return;
-
-        var oldMarks = doc.findMarks(event.from, event.to);
-        oldMarks.forEach((e) => e.attributes.event = "delete");
-        var mark = doc.markText(event.from, event.to, {
-            className: "clientRemoveText", 
-            inclusiveLeft: false, 
-            inclusiveRight: false, 
-            clearWhenEmpty: true,
-            attributes: { event: "delete" }
-        });
-
-        var index = editor.indexFromPos(event.from);
-        var from = { line: event.from.line, ch: event.from.ch }
-        var to = { line: event.to.line, ch: event.to.ch }
-        var newEvent = { from: from, to: to, index: index, origin: event.origin, text: event.text, markID: mark.id  }
-        eventCount++;
-        eventQueue.push(newEvent);
-        
-        a.push(newEvent);
-        
-        if(eventQueue.length == 1)
-        {
-            handleNextClientEvent();
+        return;
+    }
+    
+    if(event.origin == "+delete" || event.origin == "cut")
+    {
+        event.cancel();
+        var deletion = new LocalChange(event.from, event.to, "");
+        doc.setCursor(deletion.from);
+        if(editor.indexFromPos(deletion.to) == 0) return;
+        var deletedText = doc.getRange(deletion.from, deletion.to);
+    
+        var fromIndex = doc.indexFromPos(deletion.from);
+    
+        for(var i = 0; i < deletedText.length; i++) {
+    
+            var from = doc.posFromIndex(fromIndex + i);
+            var to = doc.posFromIndex(fromIndex + i + 1);
+            var oldMarks = doc.findMarks(from, to);
+            if(oldMarks.length > 0) return;
+            var mark = doc.markText(from, to, {
+                className: "clientRemoveText", 
+                inclusiveLeft: false, 
+                inclusiveRight: false, 
+                clearWhenEmpty: true,
+                attributes: { event: "delete" }
+            });
+            clientMarks.set(mark.id, mark);
+            
+            var node = CharNode.nodeFromIndex(fromIndex + i, rootCharNode);
+            var position = node ? node.char.position : [];
+            var payload = { origin : "delete", position : position, markID: mark.id  }
+            var json = JSON.stringify(payload);
+            socket.send(json);
         }
     }
-    if(event.origin == "+input")
+
+    if(event.origin == "+input" || event.origin == "paste")
     {
-        if(event.text.join('\n')[0] == '\n')
-        {
-            event.cancel();
-            var index = editor.indexFromPos(event.from);
-            var from = { line: event.from.line, ch: event.from.ch }
-            var to = { line: event.to.line, ch: event.to.ch }
-            var newEvent = { from: from, to: to, index: index, origin: event.origin, text: event.text }
-            eventCount++;
-            eventQueue.push(newEvent);
-    
-            if(eventQueue.length == 1)
-            {
-                handleNextClientEvent();
-            }
+        if(event.from == event.to) return;
+        var deletedText = doc.getRange(event.from, event.to);
+        var fromIndex = doc.indexFromPos(event.from);
+
+        for(var i = 0; i < deletedText.length; i++) {
+            var node = CharNode.nodeFromIndex(fromIndex + i, rootCharNode);
+            var position = node ? node.char.position : [];
+            var payload = { origin : "delete", position : position }
+            var json = JSON.stringify(payload);
+            socket.send(json);
         }
-    }*/
+    }
 });
 
 editor.on("change", (editor, event) => {
-
-    switch(event.origin)
+    if(event.origin == "+input" || event.origin == "paste")
     {
-        case "+delete":
-        case "+input":
-        case "paste":
-            break;
-        default:
-            throw new Error("No se conoce el cambio " + event.origin);
-    }
-    /*if(event.origin == "+input")
-    {
-        var to = { ...event.from };
-        to.ch++;
-        var mark = doc.markText(event.from, to, {
-            className: "clientAddText", 
-            inclusiveLeft: false, 
-            inclusiveRight: false, 
-            clearWhenEmpty: true, 
-            atomic: true,
-            attributes: { event: "input" }
-        });
-        
-        var index = editor.indexFromPos(event.from);
-        var from = { line: event.from.line, ch: event.from.ch }
-        var to = { line: event.to.line, ch: event.to.ch }
-        var newEvent = { from: from, to: to, index: index, origin: event.origin, text: event.text, markID: mark.id }
-        eventCount++;
-        eventQueue.push(newEvent);
-
-        if(eventQueue.length == 1)
+        var insert = new LocalChange(event.from, event.to, event.text.join("\n"));
+        var addedText = event.text.join("\n");
+        var fromIndex = doc.indexFromPos(insert.from);
+        for(var i = 0; i < addedText.length; i++)
         {
-            handleNextClientEvent();
-        }
-    }*/
-});
+            var from = doc.posFromIndex(fromIndex + i);
+            var to = doc.posFromIndex(fromIndex + i + 1);
+            var mark = doc.markText(from, to, {
+                className: "clientAddText", 
+                inclusiveLeft: false, 
+                inclusiveRight: false, 
+                clearWhenEmpty: true,
+                attributes: { event: "input" }
+            });
+            clientMarks.set(mark.id, mark);
 
-function handleNextClientEvent()
-{
-    if(eventQueue.length < 1) return;
-    var event = eventQueue[0];
-    if(event.origin == "+input")
-    {
-        var index = event.index;
-        var rightNode = CharNode.nodeFromIndex(index, rootCharNode);
-        var leftNode  = CharNode.nodeFromIndex(index - 1, rootCharNode);
-        var rightPos, leftPos;
-        rightPos = rightNode ? rightNode.char.position : [];
-        leftPos  = leftNode  ? leftNode.char.position  : [];
-        var pos = CharNode.generarPos(leftPos, rightPos, clientID);
-        var text = event.text.join('\n')[0];
-        var char = new Char(pos, 0, text);
-        var payload = { origin : "insert", char : char, markID: event.markID }
-        var json = JSON.stringify(payload);
-        socket.send(json);
+            var rightNode = CharNode.nodeFromIndex(fromIndex + i, rootCharNode);
+            var leftNode  = CharNode.nodeFromIndex(fromIndex + i - 1, rootCharNode);
+            var rightPos, leftPos;
+            rightPos = rightNode ? rightNode.char.position : [];
+            leftPos  = leftNode  ? leftNode.char.position  : [];
+            var pos = CharNode.generarPos(leftPos, rightPos, clientID);
+            var char = new Char(pos, 0, addedText[i]);
+            var node = CharNode.insert(char, rootCharNode);
+            if(!rootCharNode) rootCharNode = node;
+            var payload = { origin : "insert", char : char, markID: mark.id }
+            var json = JSON.stringify(payload);
+            socket.send(json);
+        }
     }
-    if(event.origin == "+delete")
-    {
-        var index = event.index;
-        var node = CharNode.nodeFromIndex(index, rootCharNode);
-        var position = node ? node.char.position : [];
-        var payload = { origin : "delete", position : position, markID: event.markID  }
-        var json = JSON.stringify(payload);
-        socket.send(json);
-    }
-}
+});
 
 socket.addEventListener("message", (e) => {
     var serverEvent = JSON.parse(e);
@@ -189,9 +164,11 @@ socket.addEventListener("message", (e) => {
         if(inputEvent.origin == "insert")
         {
             try {
-                var node = CharNode.insert(inputEvent.char, rootCharNode);
-                if(!rootCharNode) rootCharNode = node;
-                var index = CharNode.indexFromNode(node);
+                try {
+                    var node = CharNode.insert(inputEvent.char, rootCharNode);
+                    if(!rootCharNode) rootCharNode = node;
+                    var index = CharNode.indexFromNode(node);
+                } catch {}
                 var mark = doc.getAllMarks().find(mark => mark.id == inputEvent.markID);
                 if(mark)
                 {
@@ -200,14 +177,14 @@ socket.addEventListener("message", (e) => {
                         var pos = mark.find();
                         var from = pos.from;
                         var to = pos.to;
-                        var value = node.char.value;
+                        var value = inputEvent.char.value;
                         doc.replaceRange(value, from, to);
                     }
                 }
-                else
+                else if(serverEvent.client_id != clientID)
                 {
                     var place = editor.posFromIndex(index);
-                    var value = node.char.value;
+                    var value = inputEvent.char.value;
                     doc.replaceRange(value, place, place);
                 }
                 
@@ -229,7 +206,7 @@ socket.addEventListener("message", (e) => {
                     var to = pos.to;
                     doc.replaceRange('', from, to);
                 }
-                else
+                else if(serverEvent.client_id != clientID)
                 {
                     var from = editor.posFromIndex(index);
                     var to = editor.posFromIndex(index+1);
@@ -241,8 +218,6 @@ socket.addEventListener("message", (e) => {
                 console.log("error: ", error);
             }
         }
-        eventQueue.shift();
-        handleNextClientEvent();
         myTree.refresh(CharNode.obtenerEstructuraArbol(rootCharNode), { duration: 0 });
     }
 });
