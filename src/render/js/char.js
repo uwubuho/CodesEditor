@@ -10,6 +10,11 @@ class Identifier
     {
         return "(" + this.digit + ", " + this.site + ")"
     }
+
+    static toString(identifier)
+    {
+        return "(" + identifier.digit + ", " + identifier.site + ")"
+    }
     
     static compare(i1, i2)
     {
@@ -36,6 +41,17 @@ class Char {
         this.position = identifiers;
         this.timestamp = timestamp;
         this.value = value;
+    }
+
+    static getPos(char)
+    {
+        var str = "[ "
+        char.position.forEach((pos) => {
+            str += Identifier.toString(pos) + ", ";
+        })
+        var str = str.substring(0, str.length - 2);
+        str += " ]"
+        return str;
     }
 
     static comparePosition(pos1, pos2)
@@ -87,9 +103,10 @@ class CharNode
     // PARA TEST
     static obtenerEstructuraArbol(root)
     {
-        if(!root) return { name: '', qty: 0, children: [] };
+        if(!root) return { name: '', qty: 0, position: '', children: [] };
         var estructura = {
             name: root.char.value,
+            position: Char.getPos(root.char),
             qty: root.size,
             children: [
                 root.left ? CharNode.obtenerEstructuraArbol(root.left) : {},

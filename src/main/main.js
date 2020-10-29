@@ -14,7 +14,7 @@ const createWindow = () => {
 			nodeIntegration: true,
 		}
 	});
-	mainWindow.loadFile(path.join(__dirname, '..', 'editor.html'));
+	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'main.html'));
 	//mainWindow.webContents.openDevTools();
 };
 

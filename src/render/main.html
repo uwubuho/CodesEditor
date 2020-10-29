@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>  
+    <meta charset="UTF-8">
+    <title>CODES</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script>
+        var $ = jQuery = require('jquery');
+        require('jquery-ui-dist/jquery-ui');
+        $( function() {
+          $( ".resizable" ).resizable({
+                handles: 'e',
+          });
+
+          $( ".open-files" ).sortable({
+                axis: 'x',
+                distance: 32,
+                scroll: false,
+                tolerance: "pointer",
+          });
+          
+          $( ".open-file" ).on("mousedown", function(event) {
+                var id = $(this).attr("id")
+                $(".open-files").find('.open-file.selected').removeClass('selected');
+                $(this).addClass('selected');
+                $(".files").find('.file.selected').removeClass('selected');
+                $(".files").find('#' + id).addClass('selected');
+          });
+
+          $( ".file" ).on("mousedown", function(event) {
+                var id = $(this).attr("id")
+                $(".files").find('.file.selected').removeClass('selected');
+                $(this).addClass('selected');
+                $(".open-files").find('.open-file.selected').removeClass('selected');
+                $(".open-files").find('#' + id).addClass('selected');
+          });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="project-list">
+            <div class="project"><div class="project-letter">A</div></div>
+        </div>
+
+        <div class="project-tab">
+            <div class="file-explorer resizable">
+                <div class="explorer-text"><div>EXPLORER</div></div>
+                <div class="files">
+                    <div id="file-1" class="file selected">
+                        <div class="file-text">example.js</div>
+                    </div>
+                    <div id="file-2" class="file">
+                        <div class="file-text">example.css</div>
+                    </div>
+                    <div id="file-3" class="file">
+                        <div class="file-text">example.html</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workspace">
+
+                <div class="open-files">
+                    <div id="file-1" class="open-file selected">
+                        <div class="open-file-text">example.js</div>
+                    </div>
+                    <div id="file-2" class="open-file">
+                        <div class="open-file-text">example.css</div>
+                    </div>
+                    <div id="file-3" class="open-file">
+                        <div class="open-file-text">example.html</div>
+                    </div>
+                </div>
+                <div class="open-file-route"><div>src > example.js</div></div>
+                <div class="editor-container">
+                    <div class="editor" id="editor"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="Tree" id="tree"></div>
+    <script src="js/editor.js" type="module" charset="utf-8"></script>
+</body>
+
+</html>

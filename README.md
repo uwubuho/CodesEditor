@@ -16,11 +16,6 @@ git clone https://github.com/vantwot/CodesEditor.git
 cd CodesEditor
 ```
 
-Cambia a la rama en la que quieren trabajar/testear (para el equipo de desarrollo) .
-```bash
-git checkout experimental
-```
-
 Instala las dependencias
 ```bash
 npm install
