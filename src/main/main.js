@@ -14,7 +14,7 @@ const createWindow = () => {
 			nodeIntegration: true,
 		}
 	});
-	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'main.html'));
+	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'login/login.html'));
 	//mainWindow.webContents.openDevTools();
 };
 

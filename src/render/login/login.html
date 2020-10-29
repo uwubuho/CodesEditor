@@ -9,22 +9,24 @@
 </head>
 
 <body>
-    <form action="index.html" class="form-box">
+    <form action="index.html" class="form-box" onsubmit="return false">
         <h1 class="form-title">CODES</h1>
         
         <div class="form-element">
             <p class="form-label"><b>CORREO ELECTRÓNICO</b></p>
-            <input class="form-input" type="text" placeholder="">
+            <input class="form-input" type="text" placeholder="" id="email">
         </div>
 
         <div class="form-element">
             <p class="form-label"><b>CONTRASEÑA</b></p>
-            <input class="form-input" type="password" placeholder="">
+            <input class="form-input" type="password" placeholder="" id="pass">
             <p class="text"><a href="">¿Olvidaste tu contraseña?</a></P>
         </div>
 
-        <button class="submit-button" type="submit"><b>INICIAR SESIÓN</b></button>
+        <button class="submit-button" id="botonInicio" onclick="iniciarSesion()" type="submit"><b>INICIAR SESIÓN</b></button>
         <p class="text">¿Eres nuevo? <a href="./register.html">Registrate aquí</a></P>
     </form>
+
+    <script src="./../js/login.js" charset="utf-8"></script>
 </body>
 <html>
