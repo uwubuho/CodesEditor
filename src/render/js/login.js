@@ -22,5 +22,4 @@ function iniciarSesion(){
     var data = JSON.stringify({ "username": email.value, "password": pass.value }); 
     xhr.send(data);
     
-    return false;
 } 
