@@ -3,7 +3,7 @@
   "productName": "codeseditor",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "src/main/main.js",
+  "main": "src/electronMain/electronMain.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

@@ -1,5 +1,5 @@
-@import url(../../../node_modules/codemirror/lib/codemirror.css);
-@import url(../../../node_modules/jquery-ui-dist/jquery-ui.css);
+@import url(../../../../node_modules/codemirror/lib/codemirror.css);
+@import url(../../../../node_modules/jquery-ui-dist/jquery-ui.css);
 
 body {
     margin: 0px;

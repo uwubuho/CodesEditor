@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Ruluko Regular';
-    src: url('fonts/Ruluko-Regular.ttf');
+    src: url('../fonts/Ruluko-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Crete Round';
-  src: url('fonts/CreteRound-Regular.ttf');
+  src: url('../fonts/CreteRound-Regular.ttf');
 }
 
 body {

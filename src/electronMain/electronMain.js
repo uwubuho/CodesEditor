@@ -14,8 +14,9 @@ const createWindow = () => {
 			nodeIntegration: true,
 		}
 	});
-	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'login/login.html'));
-	//mainWindow.webContents.openDevTools();
+	mainWindow.loadFile(path.join(__dirname, '..','render', 'components', 'main', 'main.html'));
+	//mainWindow.loadFile(path.join(__dirname, '..', 'render', 'components', 'login', 'login.html'));
+	mainWindow.webContents.openDevTools();
 };
 
 app.on('ready', createWindow);
