@@ -45,6 +45,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "codemirror": "^5.58.1",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.5.1",

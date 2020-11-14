@@ -1,5 +1,5 @@
 import { Identifier, Char, CharNode } from './char.js';
-import { ConexionEditor } from './connection.js';
+const { ipcRenderer } = require('electron')
 
 class LocalChange 
 {
@@ -41,12 +41,13 @@ var myTree = Treeviz.create({
 
 var CodeMirror = require("codemirror");
 
-var connected = false;
-var endpointHk = 'ws://codes-collab.herokuapp.com';
-var endpointLocal = 'ws://127.0.0.1:8000';
-var url = '/ping/';
-var token = '67c03b6f6fb51a22af1c30c1b155cf20b9efae35';
-var socket = new ConexionEditor(endpointHk, url, token);
+
+ipcRenderer.invoke('set-websocket', 'debug', '/ping/');
+ipcRenderer.invoke('set-ws-listener');
+ipcRenderer.on('ws-message', (event, ...args) => {
+    onSocketMessage(args[0]);
+});
+
 var rootCharNode = null;
 var clientID = -1;
 
@@ -64,11 +65,11 @@ var doc = editor.getDoc();
 var cursor = doc.getCursor();
 
 editor.on("beforeChange", (editor, event) => {
-    if(!connected)
+    /*if(!socket.connected)
     {
         event.cancel();
         return;
-    }
+    }*/
     
     if(event.origin == "+delete" || event.origin == "cut")
     {
@@ -99,7 +100,7 @@ editor.on("beforeChange", (editor, event) => {
             var position = node ? node.char.position : [];
             var payload = { origin : "delete", position : position, markID: mark.id  }
             var json = JSON.stringify(payload);
-            socket.send(json);
+            sendSocketMessage(json);
         }
     }
 
@@ -114,7 +115,7 @@ editor.on("beforeChange", (editor, event) => {
             var position = node ? node.char.position : [];
             var payload = { origin : "delete", position : position }
             var json = JSON.stringify(payload);
-            socket.send(json);
+            sendSocketMessage(json);
         }
     }
 });
@@ -149,12 +150,17 @@ editor.on("change", (editor, event) => {
             if(!rootCharNode) rootCharNode = node;
             var payload = { origin : "insert", char : char, markID: mark.id }
             var json = JSON.stringify(payload);
-            socket.send(json);
+            sendSocketMessage(json);
         }
     }
 });
 
-socket.addEventListener("message", (e) => {
+function sendSocketMessage(message)
+{
+    ipcRenderer.invoke('ws-send', message);
+}
+
+function onSocketMessage(e) {
     var serverEvent = JSON.parse(e);
     console.log(serverEvent)
     if(serverEvent.type == "presence_accept")
@@ -222,27 +228,7 @@ socket.addEventListener("message", (e) => {
             }
         }
     }
-});
-
-socket.addEventListener("open", (e) => {
-    connected = true;
-    //doc.replaceRange('1', { line: 0, ch: 0 }, { line: 0, ch: 0 }, "+input")
-    //doc.replaceRange('2', { line: 0, ch: 1 }, { line: 0, ch: 1 }, "+input")
-    //doc.replaceRange('',  { line: 0, ch: 1 }, { line: 0, ch: 2 }, "+delete")
-    //doc.replaceRange('3', { line: 0, ch: 1 }, { line: 0, ch: 1 }, "+input")
-    //doc.replaceRange('4', { line: 0, ch: 2 }, { line: 0, ch: 2 }, "+input")
-    //doc.replaceRange('',  { line: 0, ch: 2 }, { line: 0, ch: 3 }, "+delete")
-    //doc.replaceRange('5', { line: 0, ch: 2 }, { line: 0, ch: 2 }, "+input")
-    //doc.replaceRange('6', { line: 0, ch: 2 }, { line: 0, ch: 2 }, "+input")
-    //doc.replaceRange('',  { line: 0, ch: 2 }, { line: 0, ch: 3 }, "+delete")
-    //doc.replaceRange('7', { line: 0, ch: 2 }, { line: 0, ch: 2 }, "+input")
-    //doc.replaceRange('8', { line: 0, ch: 4 }, { line: 0, ch: 4 }, "+input")
-    //handleNextClientEvent();
-})
-
-socket.addEventListener("close", (e) => {
-    connected = false;
-})
+};
 
 $( "#tree" ).on("click", function(event) {
     myTree.refresh(CharNode.obtenerEstructuraArbol(rootCharNode), { duration: 0 });
