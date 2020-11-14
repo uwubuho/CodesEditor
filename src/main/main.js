@@ -7,11 +7,11 @@ if (require('electron-squirrel-startup')) {
 	app.quit();
 }
 
-const createWindow = () => {
+async function createWindow() {
 	
-	var options = { endpoint : '127.0.0.1:8000' }
+	var options = { endpoint : 'codes-collab.herokuapp.com' }
 	var codes = new CodesApplication(options);
-	var response = codes.connection.authenticate('dev', 'dev');
+	await codes.connection.authenticate('dev', 'dev');
 
 	ipcMain.handle('set-websocket', (event, ...args) => {
 		codes.connection.setSocket(args[0], args[1]);
