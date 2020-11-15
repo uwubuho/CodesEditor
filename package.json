@@ -16,11 +16,12 @@
   },
   "main": "src/main/main.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start-react": "react-scripts start",
+    "start-electron": "npx electronmon .",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-react" : "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"SET BROWSER=none && npm run start-react\" \"wait-on http://localhost:3000 && npx electronmon .\""
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electronmon": "^1.1.2"
   }
 }

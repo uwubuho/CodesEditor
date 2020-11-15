@@ -24,5 +24,5 @@ npm install
 ## Uso
 Inicia la aplicación
 ```bash
-npm run electron-react
+npm start
 ```
