@@ -11,10 +11,20 @@ async function createWindow() {
 	
 	var options = { endpoint : 'codes-collab.herokuapp.com' }
 	var codes = new CodesApplication(options);
-	await codes.connection.authenticate('dev', 'dev');
+
+	const mainWindow = new BrowserWindow({
+		width: 1280, 
+		height: 720,
+		webPreferences: {
+			worldSafeExecuteJavaScript: true,
+			nodeIntegration: true,
+		}
+	});
 
 	ipcMain.handle('set-websocket', (event, ...args) => {
-		codes.connection.setSocket(args[0], args[1]);
+		codes.connection.setSocket(args[0], args[1]).catch((e) => {
+			mainWindow.loadFile(path.join(__dirname, '..', 'render', 'login/login.html'));
+		});
 	});
 
 	ipcMain.handle('set-ws-listener', (event, ...args) => {
@@ -30,16 +40,15 @@ async function createWindow() {
 		ws.send(data);
 	});
 
-	const mainWindow = new BrowserWindow({
-		width: 1280, 
-		height: 720,
-		webPreferences: {
-			worldSafeExecuteJavaScript: true,
-			nodeIntegration: true,
-		}
+	ipcMain.handle('login', (event, ...args) => {
+		codes.connection.authenticate(args[0], args[1]).then((e) => {
+			mainWindow.loadFile(path.join(__dirname, '..', 'render', 'main.html'));
+		}).catch((e) => {
+			mainWindow.loadFile(path.join(__dirname, '..', 'render', 'login/login.html'));
+		});
 	});
-	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'main.html'));
 
+	mainWindow.loadFile(path.join(__dirname, '..', 'render', 'login/login.html'));
 	//mainWindow.webContents.openDevTools();
 };
 

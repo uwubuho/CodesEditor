@@ -11,7 +11,7 @@ module.exports = class ConnectionManager
         this.token = '';
     }
 
-    setSocket(key, url)
+    async setSocket(key, url)
     {
         var ws = new WebSocket('ws://' + this.endpoint + url, {
             headers : {
@@ -26,6 +26,11 @@ module.exports = class ConnectionManager
 
         ws.on("close", () => {
             ws.connected = false;
+        });
+
+        ws.on("error", (e) => {
+            ws.connected = false;
+            this.sockets.delete(key);
         });
 
         this.sockets.set(key, ws);
