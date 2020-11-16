@@ -1,0 +1,143 @@
+.LoginContainer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgba(20, 20, 20, 0.6);
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    box-shadow: -2px 2px 10px 0px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    box-sizing: border-box;
+    width: 400px;
+    border-radius: 10px;
+    padding: 40px;
+    background: #282B30;
+}
+
+.modalPop[pop='1'] {
+    animation: modalPop 0.1s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+}
+
+.modalPop[pop='0'] {
+    animation: modalFade 0.1s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+}
+
+@keyframes modalFade {
+    from {transform: translate(50%, -50%) scale(1)}
+    to   {transform: translate(50%, -50%) scale(0.5)}
+}
+
+@keyframes modalPop {
+    from {transform: translate(50%, -50%) scale(0.6)}
+    to   {transform: translate(50%, -50%) scale(1)}
+}
+
+.form-title {
+    position: relative;
+    display: block;
+    margin: 0px;
+    margin-bottom: 30px;
+    color: #A0A5AB;
+    font-family: 'Crete Round';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 0.8;
+    padding: 0px;
+    width: 100%;
+    font-size: 60px;
+    text-align: center;
+    user-select: none;
+}
+
+.form-element {
+    position: relative;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    display: block;
+}
+
+.form-label {
+    color: #8d8d8d;
+    font-family: 'Ruluko Regular';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    margin: 0px;
+    margin-bottom: 7px;
+    user-select: none;
+}
+
+.form-input {
+    box-sizing: border-box;
+    color: #CCCCCC;
+    font-size: 15px;
+    background: #424549;
+    padding-left: 8px;
+    height: 40px;
+    width: 100%;
+    margin: 0px;
+    border: none;
+    border-radius: 6px;
+}
+
+.form-input[type="password"] {
+    font: small-caption;
+    font-size: 16px;
+}
+
+.form-input:focus {
+    border: solid 1px #8d8d8d;
+    outline: none;
+}
+
+.submit-button {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    border: 0;
+    font-family: 'Ruluko Regular';
+    color: #1E2124;
+    background: #8d8d8d;
+    height: 40px;
+    width: 100%;
+    border-radius: 6px;
+}
+
+.text {
+    margin-top: 5px;
+    margin-bottom: 0;
+    color: #818181;
+    font-family: 'Ruluko Regular';
+    font-size: 15px;
+    user-select: none;
+}
+
+a {
+    color: #818181;
+    font-family: 'Ruluko Regular';
+    font-weight: bold;
+    font-size: 15px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

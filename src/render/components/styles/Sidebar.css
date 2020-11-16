@@ -7,9 +7,8 @@
 }
 
 .project {
+    position: relative;
     user-select: none;
-    padding: 20px;
-    text-align: center;
     color: #A0A5AB;
     background-color: #282B30;
     box-sizing: border-box;
@@ -17,4 +16,36 @@
     width: 60px;
     margin-top: 20px;
     border-radius: 50%;
+}
+
+.project-letter {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+.account {
+    cursor: pointer;
+    position: relative;
+    color: #A0A5AB;
+    background-color: #282B30;
+    box-sizing: border-box;
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+
+.account:hover {
+    background-color: #25282c;
+}
+
+.icon {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
 }

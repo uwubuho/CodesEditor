@@ -1,6 +1,8 @@
+import CodeMirror from '@uiw/react-codemirror';
+import 'codemirror/keymap/sublime';
+import 'codemirror/theme/monokai.css';
 import './styles/Editor.css';
 import { Component } from 'react';
-import CodeMirror from '@uiw/react-codemirror'
 
 class Editor extends Component {
     render() {
