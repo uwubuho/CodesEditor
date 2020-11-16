@@ -38,3 +38,11 @@
 .CodeMirror-cursor {
     border-left: 1px solid #7B8189;
 }
+
+.clientAddText {
+    color: #696969;
+}
+
+.clientRemoveText {
+    color: #6d4545;
+}
