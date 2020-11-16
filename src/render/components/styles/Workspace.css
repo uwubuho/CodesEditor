@@ -1,0 +1,48 @@
+.Workspace {
+    position: relative;
+    flex-grow: 1;
+    top: 0!important;
+    bottom: 0!important;
+    height: 100%!important;
+    display: flex;
+    flex-direction: column;
+}
+
+.open-files {
+    z-index: 2;
+    height: 40px;
+    display: flex;
+    background-color: #282B30;
+}
+
+.open-file {
+    cursor: pointer;
+    display: flex;
+    background-color: #36393E;
+    color: #CCCCCC;
+    height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.open-file.selected {
+    background-color: #1E2124;
+}
+
+.open-file-route {
+    user-select: none;
+    z-index: 1;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
+    display: flex;
+    background-color: #1E2124;
+    height: 30px;
+    color: #7B8189;
+    padding-right: 10px;
+    padding-left: 10px;
+    align-items: center;
+    font-size: 0.9em;
+}
