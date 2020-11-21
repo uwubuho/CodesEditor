@@ -20,6 +20,10 @@
     transform: translate(50%, -50%);
 }
 
+.modalPop {
+	will-change: transform;
+}
+
 .modalPop[pop='1'] {
     animation: modalPop 0.1s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 }

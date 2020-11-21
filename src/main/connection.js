@@ -15,7 +15,7 @@ module.exports = class ConnectionManager
     {
         var ws = new WebSocket('ws://' + this.endpoint + url, {
             headers : {
-                authorization: this.token
+                Authorization: 'Token ' + this.token
             }
         });
 

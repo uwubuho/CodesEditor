@@ -24,9 +24,9 @@ class Editor extends Component {
     }
 
     componentDidMount() {
-        var ws = new WebSocket('ws://codes-collab.herokuapp.com/ping/', {
+        var ws = new WebSocket('ws://codes-collab.herokuapp.com/echo/', {
             headers : {
-                authorization: '67c03b6f6fb51a22af1c30c1b155cf20b9efae35'
+                Authorization: 'Token f05d1e0164aa64bd17feb25191259754e457c99c'
             }
         });
         ws.on("message", this.onSocketMessage)
